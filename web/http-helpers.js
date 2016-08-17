@@ -1,6 +1,7 @@
 var path = require('path');
 var fs = require('fs');
 var archive = require('../helpers/archive-helpers');
+var qs = require('querystring');
 
 exports.headers = {
   'access-control-allow-origin': '*',
@@ -19,7 +20,7 @@ exports.serveAssets = function(res, asset, callback) {
 
 
 // As you progress, keep thinking about what helper functions you can put here!
-exports.handleGet = function(req, res) {
+exports.handleGET = function(req, res) {
   if (req.url === '/') {
     fs.readFile('./web/public/index.html', function(err, data) {
        //console.log('handleRequest');
@@ -38,4 +39,27 @@ exports.handleGet = function(req, res) {
     });
 
   }
+};
+
+exports.handlePOST = function(req, res) {
+  var requestBody = '';
+  req.on('data', function(data) {
+    requestBody += data;
+  });
+  req.on('end', function() {
+    var newUrl = qs.parse(requestBody);
+    fs.appendFile(archive.paths.list, newUrl['url'] + '\n', function() {
+      res.writeHead(302, exports.headers);
+      res.end();
+    });
+  });
+
+
+
+
+
+
+
+
+
 };

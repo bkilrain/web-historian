@@ -11,9 +11,14 @@ var httpHelpers = require('./http-helpers.js');
 exports.handleRequest = function (req, res) {
 
 
-  if (req.method === 'GET') {
-    
-    httpHelpers.handleGet(req, res);
+  if (req.method === 'GET') {  
+    httpHelpers.handleGET(req, res);
+  } else if (req.method === 'POST') {
+
+    httpHelpers.handlePOST(req, res);
+
+
+
   }
 
 
