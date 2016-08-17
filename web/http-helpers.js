@@ -19,3 +19,23 @@ exports.serveAssets = function(res, asset, callback) {
 
 
 // As you progress, keep thinking about what helper functions you can put here!
+exports.handleGet = function(req, res) {
+  if (req.url === '/') {
+    fs.readFile('./web/public/index.html', function(err, data) {
+       //console.log('handleRequest');
+      //console.log(JSON.stringify(exports.headers));
+      res.writeHead(200, exports.headers);
+      res.end(data);
+    });
+  } else {
+    fs.readFile(archive.paths.archivedSites + req.url, function(err, data) {
+      if (err) {
+        res.writeHead(404, exports.headers);
+        res.end('ERROR');
+      }
+      res.writeHead(200, exports.headers);
+      res.end(data);
+    });
+
+  }
+};
