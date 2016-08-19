@@ -22,5 +22,8 @@ exports.fetcher = function() {
 
 };
 
+exports.fetcher();
+
 // read url list and compare to archived files
-// if there is no archived file, download and archive new si
+// if there is no archived file, download and archive new 
+// 1 * * * * /usr/local/bin/node /2016-07-web-historian/workers/htmlfetcher.js

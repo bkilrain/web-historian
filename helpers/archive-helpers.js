@@ -1,7 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-var worker = require('../workers/htmlfetcher.js');
 var request = require('request');
 
 /*
@@ -71,9 +70,6 @@ exports.downloadUrls = function(urls) {
     });
   });
 };
-
-
-worker.fetcher();
 
 
 

@@ -59,13 +59,16 @@ exports.handlePOST = function(req, res) {
   });
   req.on('end', function() {
     var newUrl = qs.parse(requestBody)['url'];
+    if (newUrl === undefined) {
+      exports.serveAssets(res, archive.paths.siteAssets + '/index.html', 200);
+    }
     
     // if the url is not in the list
     archive.isUrlInList(newUrl, function(exists) {
       if (!exists) {
       //addUrlToList
         archive.addUrlToList(newUrl);
-        exports.serveAssets(res, archive.paths.siteAssets + '/index.html', 302);
+        exports.serveAssets(res, archive.paths.siteAssets + '/loading.html', 302);
 
     // else if the url is in the list
       } else {
